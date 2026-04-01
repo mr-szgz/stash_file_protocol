@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stash-file-protocol"
+version = "0.1.0"
+description = "Resolve stash:// media URIs to local file paths"
+requires-python = ">=3.10"
+dependencies = [
+    "stashapi",
+    "winregistry>=2.1.4; platform_system == 'Windows'",
+]
+
+[project.scripts]
+stash-file-protocol = "stash_file_protocol:main"

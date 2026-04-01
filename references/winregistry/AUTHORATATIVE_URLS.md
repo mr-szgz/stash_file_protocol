@@ -1,0 +1,2 @@
+- https://pypi.org/project/winregistry/
+- https://github.com/shpaker/winregistry/

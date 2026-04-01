@@ -1,0 +1,14 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Classes\stash-file]
+@="URL:Stash File Protocol"
+"URL Protocol"=""
+
+[HKEY_CURRENT_USER\Software\Classes\stash-file\DefaultIcon]
+@="\"O:\\stash\\.stash\\plugins\\community\\sceneFileInfoLinks\\.venv\\Scripts\\pythonw.exe\",0"
+
+[HKEY_CURRENT_USER\Software\Classes\stash-file\shell]
+@="open"
+
+[HKEY_CURRENT_USER\Software\Classes\stash-file\shell\open\command]
+@="\"O:\\stash\\.stash\\plugins\\community\\sceneFileInfoLinks\\.venv\\Scripts\\pythonw.exe\" \"O:\\stash\\.stash\\plugins\\community\\sceneFileInfoLinks\\stash_file_protocol.py\" \"%1\""

@@ -1,0 +1,9 @@
+[tools]
+python = "3.10"
+uv = "latest"
+
+[env]
+UV_LINK_MODE="copy"
+
+[tasks.build]
+run = "pwsh -NoProfile -File ./scripts/Invoke-Build.ps1"
