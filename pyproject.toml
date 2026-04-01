@@ -9,6 +9,8 @@ description = "Resolve stash:// media URIs to local file paths"
 requires-python = ">=3.10"
 dependencies = [
     "stashapi",
+    "tqdm>=4.67.3",
+    "winregistry>=2.1.4",
     "winregistry>=2.1.4; platform_system == 'Windows'",
 ]
 

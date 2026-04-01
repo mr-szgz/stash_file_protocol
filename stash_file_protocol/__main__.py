@@ -1,5 +1,31 @@
+from __future__ import annotations
+
+import sys
+import traceback
+
 from .stash_file_protocol import main
 
 
+def _wait_for_keypress() -> None:
+    try:
+        import msvcrt
+
+        print("Press any key to close...", flush=True)
+        msvcrt.getch()
+    except Exception:
+        # Fallback for non-Windows or missing console.
+        try:
+            input("Press Enter to close...")
+        except Exception:
+            pass
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception:
+        traceback.print_exc()
+        _wait_for_keypress()
+        sys.exit(1)

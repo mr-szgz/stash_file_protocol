@@ -7,3 +7,6 @@ UV_LINK_MODE="copy"
 
 [tasks.build]
 run = "pwsh -NoProfile -File ./scripts/Invoke-Build.ps1"
+
+[tasks.clean]
+run = "pwsh -NoProfile -Command \"Remove-Item -Force -Recurse -ErrorAction SilentlyContinue build, dist; Remove-Item -Force -ErrorAction SilentlyContinue stash-file-protocol.spec\""
