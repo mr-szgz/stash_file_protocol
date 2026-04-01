@@ -1,4 +1,3 @@
 stashapp-tools
 stashapi
 winregistry
-argparse

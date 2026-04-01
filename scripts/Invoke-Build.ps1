@@ -1,7 +1,7 @@
 param(
     [string[]]$DataFiles = @("config.json"),
     [string]$Name = "stash-file-protocol",
-    [string]$EntryScript = "stash_file_protocol.py"
+    [string]$EntryScript = "stash_file_protocol\\stash_file_protocol.py"
 )
 
 $ErrorActionPreference = "Stop"
