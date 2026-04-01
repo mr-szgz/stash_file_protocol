@@ -112,6 +112,7 @@ def main(argv: list[str] | None = None) -> int:
         "--install",
         "-Install",
         nargs="?",
+        const="__AUTO__",
         metavar="EXE",
         help="Install Windows registry protocol keys using the provided EXE path.",
     )
@@ -176,8 +177,23 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.install is not None:
-        icon_value = f'"{args.install}",0'
-        command_value = f'"{args.install}" -Uri "%1"'
+        install_path = args.install
+        if install_path == "__AUTO__":
+            candidate_paths = []
+            if sys.executable.lower().endswith(".exe"):
+                candidate_paths.append(Path(sys.executable))
+            candidate_paths.append(Path(sys.argv[0]))
+            repo_root = Path(__file__).resolve().parents[1]
+            candidate_paths.append(repo_root / "dist" / "stash-file-protocol.exe")
+            for candidate in candidate_paths:
+                if candidate and Path(candidate).exists():
+                    install_path = str(Path(candidate).resolve())
+                    break
+        if not install_path or install_path == "__AUTO__":
+            print("Install failed: exe path not provided and auto-detect failed.")
+            return 1
+        icon_value = f'"{install_path}",0'
+        command_value = f'"{install_path}" -Uri "%1"'
 
         with open_key(
             PROTOCOL_KEY,

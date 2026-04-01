@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['stash_file_protocol.py'],
+    ['stash_file_protocol\\stash_file_protocol.py'],
     pathex=[],
     binaries=[],
     datas=[('config.json', '.')],
