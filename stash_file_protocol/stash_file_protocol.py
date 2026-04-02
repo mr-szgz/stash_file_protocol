@@ -71,6 +71,9 @@ def get_vivaldi_downloads_dir(prefs_path: Path) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    config_path = get_config_path()
+    config: dict | None = None
+
     parser = argparse.ArgumentParser(description="Stash file protocol tools.")
     parser.add_argument(
         "--version",
@@ -85,36 +88,38 @@ def main(argv: list[str] | None = None) -> int:
         help="Stash media URI (e.g. stash://scene/123) or URL.",
     )
     parser.add_argument(
-        "positional_uri",
-        nargs="?",
-        help="Stash media URI (e.g. stash://scene/123) or URL.",
-    )
-    parser.add_argument(
         "--info",
         "-Info",
         dest="info",
         help="Stash media URI (e.g. stash://scene/123) or URL for JSON info.",
     )
     parser.add_argument(
+        "positional_uri",
+        nargs="?",
+        metavar="stash:// uri",
+        help="Stash media URI (e.g. stash://scene/123) or URL.",
+    )
+    mapping_group = parser.add_mutually_exclusive_group()
+    mapping_group.add_argument(
         "--add",
         "-Add",
         dest="add",
-        metavar="MAPPING",
-        help="Add mapping in form orig:local.",
+        metavar="ORIG:LOCAL",
+        help="Add a mapping from server path to local path (orig:local).",
     )
-    parser.add_argument(
+    mapping_group.add_argument(
         "--remove",
         "-Remove",
         dest="remove",
-        metavar="MAPPING",
-        help="Remove mapping in form orig:local.",
+        metavar="ORIG:LOCAL",
+        help="Remove a mapping from server path to local path (orig:local).",
     )
-    parser.add_argument(
+    mapping_group.add_argument(
         "--list",
         "-List",
         action="store_true",
         dest="list_mappings",
-        help="List mappings.",
+        help="List configured path mappings.",
     )
     parser.add_argument(
         "--set-url",
@@ -161,26 +166,46 @@ def main(argv: list[str] | None = None) -> int:
     action_group = parser.add_mutually_exclusive_group()
     action_group.add_argument(
         "--install",
-        "-Install",
         nargs="?",
         const="__AUTO__",
-        metavar="EXE",
+        metavar="PATH",
         help="Install Windows registry protocol keys using the provided EXE path.",
     )
     action_group.add_argument(
         "--uninstall",
-        "-Uninstall",
         action="store_true",
         help="Uninstall Windows registry protocol keys.",
     )
 
     args = parser.parse_args(argv)
-    
-    config_path = get_config_path()
-    try:
-        config = load_config(config_path)
-    except RuntimeError:
-        return 1
+
+    if args.info:
+        conflicting = any(
+            [
+                args.uri,
+                args.positional_uri,
+                args.add,
+                args.remove,
+                args.list_mappings,
+                args.set_url,
+                args.set_api_key,
+                args.set_generated,
+                args.set_downloads,
+                args.set_vivaldi_downloads,
+                args.sync_browser,
+                args.install is not None,
+                args.uninstall,
+            ]
+        )
+        if conflicting:
+            print("--info cannot be combined with other options.")
+            return 2
+
+    if config is None:
+        try:
+            config = load_config(config_path)
+        except RuntimeError:
+            return 1
 
     if args.set_url:
         config["stash_url"] = args.set_url

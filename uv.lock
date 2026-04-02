@@ -9,6 +9,15 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "argparse"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/dd/e617cfc3f6210ae183374cd9f6a26b20514bbb5a792af97949c5aacddf0f/argparse-1.4.0.tar.gz", hash = "sha256:62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4", size = 70508, upload-time = "2015-09-12T20:22:16.217Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f2/94/3af39d34be01a24a6e65433d19e107099374224905f1e0cc6bbe1fd22a2f/argparse-1.4.0-py2.py3-none-any.whl", hash = "sha256:c31647edb69fd3d465a847ea3157d37bed1f95f19760b11a47aa91c04b666314", size = 23000, upload-time = "2015-09-14T16:03:16.137Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.2.25"
 source = { registry = "https://pypi.org/simple" }
@@ -160,18 +169,21 @@ name = "stash-file-protocol"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "argparse" },
     { name = "stashapi", version = "0.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "stashapi", version = "0.1.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "stashapp-tools" },
     { name = "tqdm" },
     { name = "winregistry" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "argparse", specifier = ">=1.4.0" },
     { name = "stashapi" },
+    { name = "stashapp-tools", specifier = ">=0.2.59" },
     { name = "tqdm", specifier = ">=4.67.3" },
     { name = "winregistry", specifier = ">=2.1.4" },
-    { name = "winregistry", marker = "sys_platform == 'win32'", specifier = ">=2.1.4" },
 ]
 
 [[package]]
@@ -205,6 +217,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ee/aa/01c4fac802d75527b652cf668e17596ebb8d27f2ad48c064532eaf46be1e/stashapi-0.1.4.tar.gz", hash = "sha256:f10cb4c74ceb4b1961ecdebe1e2d87f6796d8dc7a3e1d35296a4cf427f267509", size = 66253, upload-time = "2026-03-25T20:11:29.885Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d2/ac/9fcb99b368c3d05718bb8448ad7ea61447082846ee3e6dad2b100b381d58/stashapi-0.1.4-py3-none-any.whl", hash = "sha256:62c37affe779c15f41d3a6ca2d6c2a5dd5229abe2dbb462f2ade33223ba17e6c", size = 37953, upload-time = "2026-03-25T20:11:28.839Z" },
+]
+
+[[package]]
+name = "stashapp-tools"
+version = "0.2.59"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ad/a8/60680ce6651cb66aa982720366b08ce23237b084078d787f7edfaf023a1c/stashapp-tools-0.2.59.tar.gz", hash = "sha256:639d98b9e587a7c0b616c9c9d3560c064cf83b6cf877b441782b30586afc4a36", size = 32969, upload-time = "2025-09-29T13:30:38.811Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/64/4d/7262a8dd1f96c012c4b3271453d4c3cbde7caa6b291d18b00553fc6ad64a/stashapp_tools-0.2.59-py3-none-any.whl", hash = "sha256:ebe7819399d4cd264c87de71f23b2bc9338c55e5ae0c8966c2aa7b1ff9202323", size = 34851, upload-time = "2025-09-29T13:30:37.921Z" },
 ]
 
 [[package]]
